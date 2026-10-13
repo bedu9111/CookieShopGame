@@ -1,0 +1,32 @@
+'use strict';
+const assert = require('node:assert/strict');
+const g = require('./engine');
+let state = g.initialState(); state.seed = 10;
+assert.equal(state.cash, 100);
+assert.equal(g.cost({quantity:60, advertising:10}), 45);
+assert.match(g.validate(state, {quantity:200,price:2,advertising:0}), /over budget/);
+assert.match(g.validate(state, {quantity:-1,price:2,advertising:0}), /whole cookies/);
+assert.match(g.validate(state, {quantity:20,price:NaN,advertising:0}), /price/);
+assert(g.demand(state, {price:1,advertising:10}) > g.demand(state, {price:3,advertising:10}));
+assert(g.demand(state, {price:2,advertising:20}) > g.demand(state, {price:2,advertising:0}));
+const plan = {quantity:60,price:2,advertising:10};
+const first = g.runDay(state, plan);
+assert.equal(state.history.length, 0);
+assert.equal(first.history.length, 1);
+assert(first.history[0].sold <= 60);
+assert.equal(first.cash, g.money(100 + first.history[0].revenue - 45));
+assert.throws(() => g.runDay(first, plan), /next day/);
+for (let day = 0; day < 30; day++) {
+  state.awaitingNext = false;
+  state = g.runDay(state, {quantity:Math.min(40, Math.floor((state.cash - 5) / 0.5)),price:2,advertising:0});
+  assert.equal(state.history.length, day + 1);
+  assert(state.cash >= 0);
+}
+state.awaitingNext = false;
+assert.throws(() => g.runDay(state, plan), /complete/);
+let broke = {...g.initialState(),cash:5};
+broke = g.runDay(broke, {quantity:0,price:2,advertising:0});
+assert.equal(broke.cash, 0);
+broke.awaitingNext = false;
+assert.throws(() => g.runDay(broke, plan), /complete/);
+console.log('Passed: pricing, advertising, expenses, affordability, day transitions, 30-day completion, and bankruptcy.');

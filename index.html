@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#164c40">
+  <title>Bedu’s Cookie Shop Tycoon</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script src="engine.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><button class="brand" id="shop-home" type="button" aria-label="Bedu’s Cookie Shop — back to top"><img class="brand-icon" src="favicon.svg" alt="" width="44" height="44"><span>BEDU’S <small>COOKIE SHOP</small></span></button><span class="header-label">A LITTLE DOUGH. A BIG DREAM.</span><button id="restart" class="text-button">↻ <span>New game</span></button></header>
+  <main>
+    <section class="intro"><div><div class="eyebrow">THE COOKIE SHOP TYCOON</div><h1>Let’s make some dough.</h1><p>One little shop. Thirty days. How far can you grow?</p></div><div class="day-badge"><span class="live-dot"></span><span id="day-label">DAY 01 <b>/ 30</b></span></div></section>
+    <section class="stats" aria-label="Shop statistics">
+      <article class="stat"><span class="stat-label">Cash in the till <span>↗</span></span><strong id="cash">$100.00</strong><small>Your next batch starts here</small></article>
+      <article class="stat"><span class="stat-label">Total profit <span>＋</span></span><strong id="profit">$0.00</strong><small>Every little crumb counts</small></article>
+      <article class="stat"><span class="stat-label">Cookies sold <span>◉</span></span><strong id="sold">0 <em>cookies</em></strong><small>Freshly baked. Happily eaten.</small></article>
+      <article class="stat progress-stat"><span class="stat-label">Your journey <span>⚑</span></span><strong id="progress-label">0 <em>of 30 days</em></strong><div class="progress-track"><div id="progress"></div></div><small id="progress-note">A fresh start. Make it sweet.</small></article>
+    </section>
+    <div class="game-grid">
+      <section class="panel plan-panel"><div class="section-heading"><div><div class="eyebrow">YOU’RE THE BOSS</div><h2 id="plan-title">Plan today’s batch</h2></div><span class="step-tag">01 / PLAN</span></div>
+        <form id="plan-form">
+          <div class="control-block"><label for="quantity"><span class="control-icon">◉</span><span>Cookies to bake<small>Ingredients cost $0.50 per cookie</small></span></label><div class="input-wrap"><input id="quantity" name="quantity" type="number" min="0" max="1000" step="1" value="60" required><span>cookies</span></div></div>
+          <div class="control-block"><label for="price"><span class="control-icon">＄</span><span>Price per cookie<small>A sweeter price brings more customers</small></span></label><div class="input-wrap"><span class="prefix">$</span><input id="price" name="price" type="number" min="0.25" max="10" step="0.05" value="2.00" required></div></div>
+          <div class="control-block"><label for="advertising"><span class="control-icon">⚑</span><span>Advertising budget<small>Spread the word around the neighborhood</small></span></label><div class="input-wrap"><span class="prefix">$</span><input id="advertising" name="advertising" type="number" min="0" max="1000" step="1" value="10" required></div></div>
+          <div class="cost-box"><div><span>Ingredients</span><span id="ingredient-cost">$30.00</span></div><div><span>Advertising</span><span id="advertising-cost">$10.00</span></div><div><span>Daily shop overhead <span title="Rent, electricity, and keeping the oven warm">ⓘ</span></span><span>$5.00</span></div><div class="cost-total"><strong>Today’s investment</strong><strong id="investment">$45.00</strong></div></div><div class="budget-note"><span>Cash left after opening</span><strong id="cash-after-opening">$55.00</strong></div>
+          <p class="form-error" id="form-error" role="alert"></p><button id="bake" class="primary-button" type="submit">Open shop & bake <span>→</span></button><p class="form-footnote">Baked fresh daily. Unsold cookies don’t carry over.</p>
+        </form>
+      </section>
+      <div class="right-column">
+        <section class="shop-scene" aria-label="Illustration of Bedu’s neighborhood cookie shop"><div class="scene-top"><span><span class="live-dot"></span> YOUR NEIGHBORHOOD COOKIE SPOT</span><span id="shop-status">OPEN FOR POSSIBILITIES</span></div><div class="store"><div class="store-sign">Bedu’s<span>COOKIES & GOOD DAYS</span></div><div class="awning"></div><div class="store-front"><div class="shop-window"><div class="window-copy">baked with<br><i>a little love.</i></div><div class="cookie c1"></div><div class="cookie c2"></div><div class="cookie c3"></div><div class="window-shelf"></div></div><div class="door"><div class="door-glass"><span id="door-label">HELLO!</span></div><div class="door-handle"></div></div></div><div class="store-step"></div></div><div class="plant left-plant"><span>✦</span><i></i></div><div class="plant right-plant"><span>✦</span><i></i></div><div class="ground"></div><div id="customer-layer" class="customer-layer" aria-hidden="true"></div><div id="customer-strip" class="customer-strip" hidden><span id="customer-count" role="status" aria-live="polite"></span><button id="skip-customers" type="button">Skip animation →</button></div><span class="scene-caption">Small batches. Big ambitions.</span></section>
+        <section class="forecast"><div class="forecast-symbol">☀</div><div><div class="eyebrow">TODAY’S NEIGHBORHOOD OUTLOOK</div><h3 id="market-title">A lovely day for cookies</h3><p id="market-description"></p></div><div class="demand"><strong id="demand">—</strong><span>expected customers</span></div></section>
+        <section class="panel results-panel"><div class="section-heading"><div><div class="eyebrow">THE DAILY CRUMBS</div><h2 id="result-title">Today’s results</h2></div><span class="step-tag">02 / RESULTS</span></div><div id="results" aria-live="polite"><div class="empty-results"><span>✧</span><h3>Your next chapter is in the oven.</h3><p>Set your batch, open the shop, and see how the day goes.</p></div></div></section>
+      </div>
+    </div>
+    <section class="panel history-panel"><div class="section-heading"><div><div class="eyebrow">A RECIPE FOR PROGRESS</div><h2>The shop ledger</h2></div><span id="ledger-count" class="ledger-count">0 days in the books</span></div><div class="table-scroll"><table><thead><tr><th>Day</th><th>Baked / Sold</th><th>Price</th><th>Revenue</th><th>Expenses</th><th>Profit</th><th>Cash</th></tr></thead><tbody id="ledger"><tr><td colspan="7" class="empty-ledger">Every great cookie empire starts with day one.</td></tr></tbody></table></div></section>
+    <footer><span class="footer-brand"><img src="favicon.svg" alt="" width="16" height="16"> BEDU’S COOKIE SHOP</span><span>Made of butter, ambition & a little business sense.</span><span>Progress saved automatically</span></footer>
+  </main>
+  <dialog id="reset-dialog"><h2>A fresh batch?</h2><p>This will reset your current shop and start a new 30-day run with $100.</p><div class="dialog-actions"><button id="cancel-reset" class="secondary-button">Keep playing</button><button id="confirm-reset" class="primary-button">Start fresh →</button></div></dialog>
+  <dialog id="finish-dialog"><div class="eyebrow">THAT’S HOW THE COOKIE CRUMBLES</div><h2 id="finish-title"></h2><p id="finish-description"></p><div id="finish-stats" class="finish-stats"></div><button id="view-ledger" class="secondary-button">View my ledger</button><button id="play-again" class="primary-button">Bake a new beginning →</button></dialog>
+</body>
+</html>
