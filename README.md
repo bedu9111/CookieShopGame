@@ -125,3 +125,5 @@ node --check engine.js
 Edit the HTML, CSS, or JavaScript files and refresh your browser to see changes. There are no dependencies to install or generated build files to manage.
 
 Keep business rules in `engine.js` and interface behavior in `app.js`. When changing gameplay, run the logic checks and manually try a trading day, the customer animation and skip button, saved-progress restoration, and a narrow mobile layout.
+
+Demo Links : https://cookiegame-three.vercel.app/
